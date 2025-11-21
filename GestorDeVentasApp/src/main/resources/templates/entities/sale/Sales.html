@@ -1,67 +1,108 @@
-<html lang="en"
-    xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-		<title>INVENTORY PRO 1.0</title>
-		<meta charset="UTF-8">
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-	</head>
-	<body>
-		<div style="width: 90% auto; padding: 2%; margin: 2%">
-			<div style="text-align: center;">
-				<h1>SALE</h1>
-			</div>
-			<div style="width: 90% auto; padding: 2%; margin: 2%">
-			<h1><button type="button" class="btn btn-outline-success">Add sale</button></h1>
-			
-			<table class="table table-striped table-hover">
-			  <thead>
-			    <tr>
-				  <th scope="col"></th>
-				  <th scope="col">Sale ID</th>			      
-				  <th scope="col">Branch ID</th>
-			      <th scope="col">Quantity</th>
-			      <th scope="col">Tax</th>
-				  <th scope="col">Subtotal</th>			      
-				  <th scope="col">Discount</th>
-				  <th scope="col">Value</th>
-			    </tr>
-			  </thead>
-			  <tbody>
-			  <th:block th:each="Sal :  ${Sales}">
-				  <tr>						  
-					<td>
-						<a th:href="@{/editSal}" title="Edit" style="margin-right: 8px;">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="royalblue"
-								viewBox="0 0 16 16">
-								<path
-									d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-								<path fill-rule="evenodd"
-									d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
-							</svg>
-						</a>
-						<a th:href="@{/delSal}" title="Delete">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
-								viewBox="0 0 16 16">
-								<path
-									d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-								<path
-									d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-							</svg>
-						</a>
-					</td>
-					  <td th:text="${Sal.sale_id}"> </td>
-					  <td th:text="${Sal.branch_id}"> </td>
-					  <td th:text="${Sal.quantity}"> </td>
-					  <td th:text="${Sal.tax}"> </td>
-					  <td th:text="${Sal.subtotal}"> </td>
-					  <td th:text="${Sal.discount}"> </td>
-					  <td th:text="${Sal.value}"> </td>
-				  </tr>
-			  </th:block>
-			  </tbody>
-			</table>
+    <title>INVENTORY PRO 1.0 - SALES</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        xintegrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+        .icon-link {
+            display: inline-block;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+
+<body>
+	<div class="container my-4">
+		<div class="text-center mb-5">
+			<h1>SALES RECORD</h1>
 		</div>
-	</body>
+        
+        <!-- Alert Messages -->
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <span th:text="${successMessage}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                
+                <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <span th:text="${errorMessage}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+			<div class="col-lg-10">
+                <div class="mb-3">
+                    <a th:href="@{/addSale}" class="btn btn-outline-success">Add Sale</a>
+                </div>
+
+                <!-- Sales Table -->
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Sale ID</th>
+                                <th scope="col">Branch ID</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Tax</th>
+                                <th scope="col">Subtotal</th>
+                                <th scope="col">Discount</th>
+                                <th scope="col">Total Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Iteration over the list of sales (Assumes the list is named 'Sales' in the model) -->
+                            <th:block th:each="Sale :  ${Sales}">
+                                <tr>
+                                    <td>
+                                        <!-- Link to Edit Sale -->
+                                        <a th:href="@{/editSale/{id}(id=${Sale.sale_id})}" title="Edit" class="icon-link">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="royalblue"
+                                                viewBox="0 0 16 16">
+                                                <path
+                                                    d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                                <path fill-rule="evenodd"
+                                                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                                            </svg>
+                                        </a>
+                                        <!-- Link to Delete Sale -->
+                                        <a th:href="@{/delSale/{id}(id=${Sale.sale_id})}" title="Delete" 
+                                            onclick="return confirm('Are you sure you want to delete this sales record?');"
+                                            class="icon-link">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+                                                viewBox="0 0 16 16">
+                                                <path
+                                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                                <path
+                                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                                            </svg>
+                                        </a>
+                                    </td>
+                                    <!-- Sales entity fields -->
+                                    <td th:text="${Sale.sale_id}"></td>
+                                    <td th:text="${Sale.branch_id}"></td>
+                                    <td th:text="${Sale.quantity}"></td>
+                                    <td th:text="${#numbers.formatDecimal(Sale.tax, 1, 'POINT', 2, 'POINT')}"></td>
+                                    <td th:text="${#numbers.formatDecimal(Sale.subtotal, 1, 'POINT', 2, 'POINT')}"></td>
+                                    <td th:text="${#numbers.formatDecimal(Sale.discount, 1, 'POINT', 2, 'POINT')}"></td>
+                                    <td th:text="${#numbers.formatDecimal(Sale.value, 1, 'POINT', 2, 'POINT')}"></td>
+                                </tr>
+                            </th:block>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+		</div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+	</div>
+</body>
+
 </html>

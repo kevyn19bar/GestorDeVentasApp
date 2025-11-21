@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Branches {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long branch_id;

@@ -1,0 +1,84 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>INVENTORY PRO 1.0 - Inventory</title>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        xintegrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+	<div style="width: 90% auto; padding: 2%; margin: 2%">
+		<div style="text-align: center;">
+			<h1>INVENTORY</h1>
+		</div>
+        
+        <!-- Mensajes de éxito y error -->
+        <div style="width: 90% auto; padding: 2%; margin: 2%">
+            <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+                <span th:text="${successMessage}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            
+            <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span th:text="${errorMessage}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+        
+        <div style="width: 90% auto; padding: 2%; margin: 2%">
+			<div style="margin-bottom: 20px;">
+			    <!-- Botón Add inventory, corregido a un tag <a> y con el th:href adecuado -->
+			    <a th:href="@{/addInventory}" class="btn btn-outline-success">Add inventory</a>
+			</div>
+
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th scope="col"></th>
+						<th scope="col">Inventory ID</th>
+						<th scope="col">Inventory name</th>
+						<th scope="col">Capacity volume</th>
+						<th scope="col">Creation date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<th:block th:each="Inven :  ${Inventories}">
+						<tr>
+							<td>
+                                <!-- Enlace de Edición: Se asume que el endpoint es /editInven/{id} -->
+                                <a th:href="@{/editInventory/{id}(id=${Inven.inventory_id})}" title="Edit" style="margin-right: 8px;">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="royalblue"
+										viewBox="0 0 16 16">
+										<path
+											d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+										<path fill-rule="evenodd"
+											d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+									</svg>
+								</a>
+                                <!-- Enlace de Eliminación: Se asume que el endpoint es /delInven/{id} y se añade confirmación -->
+								<a th:href="@{/delInventory/{id}(id=${Inven.inventory_id})}" title="Delete" onclick="return confirm('¿Estás seguro de que quieres eliminar este inventario?');">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+										viewBox="0 0 16 16">
+										<path
+											d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+										<path
+											d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+									</svg>
+								</a>
+							</td>
+							<td th:text="${Inven.inventory_id}"> </td>
+							<td th:text="${Inven.inventory_name}"> </td>
+							<td th:text="${Inven.capacity_volume}"> </td>
+							<td th:text="${Inven.creation_date}"> </td>
+						</tr>
+					</th:block>
+				</tbody>
+			</table>
+		</div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+	</div>
+</body>
+
+</html>

@@ -1,122 +1,141 @@
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
-    <title>INVENTORY PRO 1.0 - Add Branch</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-    </style>
+	<title>Add New Branch | Inventory Pro</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" th:href="@{/css/dashboard.css}" href="/css/dashboard.css">
 </head>
 
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+<body>
 
-    <div class="w-full max-w-2xl bg-white shadow-2xl rounded-xl p-8 md:p-10">
+	<div class="sidebar">
+		<div class="sidebar-brand ps-3">
+			<img th:src="@{/img/logo.png}" src="/img/logo.png" width="45" height="45" class="me-2">
+			INV PRO 1.0
+		</div>
+		<ul class="nav flex-column">
+			<li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-home"></i> Dashboard</a></li>
+			<div
+				style="padding: 15px 25px; font-size: 0.75rem; text-transform: uppercase; color: #aaa; font-weight: bold;">
+				Gestión
+			</div>
+			<li class="nav-item"><a class="nav-link active" href="/listBranch"><i class="fas fa-store"></i> Branch</a>
+			</li>
+		</ul>
+	</div>
 
-        <div class="text-center mb-8">
-            <h1 class="text-3xl font-extrabold text-gray-800">Add New Branch</h1>
-            <p class="text-gray-500 mt-2">Enter the detailed information for the new branch.</p>
-        </div>
+	<div class="content-wrapper">
+		<div class="container-fluid">
 
-        <form th:action="@{/savebranch}" th:object="${branch}" method="post" class="space-y-6">
+			<div class="table-card" style="max-width: 850px; margin: 20px auto;">
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label for="branch_name" class="block text-sm font-medium text-gray-700 mb-1">Branch Name</label>
-                    <input type="text" id="branch_name" th:field="*{branch_name}"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150"
-                        required>
-                    <p th:if="${#fields.hasErrors('branch_name')}" th:errors="*{branch_name}"
-                        class="text-xs text-red-500 mt-1"></p>
-                </div>
+				<div class="table-title border-bottom pb-3 mb-4">
+					<span><i class="fas fa-building me-2" style="color: var(--primary-color);"></i> Add New
+						Branch</span>
+				</div>
 
-                <div>
-                    <label for="contact_name" class="block text-sm font-medium text-gray-700 mb-1">Contact Name</label>
-                    <input type="text" id="contact_name" th:field="*{contact_name}"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150"
-                        required>
-                    <p th:if="${#fields.hasErrors('contact_name')}" th:errors="*{contact_name}"
-                        class="text-xs text-red-500 mt-1"></p>
-                </div>
-            </div>
+				<form th:action="@{/savebranch}" th:object="${branch}" method="post">
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label for="branch_address" class="block text-sm font-medium text-gray-700 mb-1">Full Address</label>
-                    <input type="text" id="branch_address" th:field="*{branch_address}"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150"
-                        required>
-                    <p th:if="${#fields.hasErrors('branch_address')}" th:errors="*{branch_address}"
-                        class="text-xs text-red-500 mt-1"></p>
-                </div>
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="branch_name" class="form-label">Branch Name</label>
+							<div class="input-group">
+								<span class="input-group-text bg-light"><i class="fas fa-store"></i></span>
+								<input type="text" id="branch_name" th:field="*{branch_name}" class="form-control"
+									placeholder="Ex: Main Store" required>
+							</div>
+						</div>
 
-                <div>
-                    <label for="employee_count" class="block text-sm font-medium text-gray-700 mb-1">Total Employees</label>
-                    <input type="number" id="employee_count" th:field="*{employee_count}" min="0"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150"
-                        required>
-                    <p th:if="${#fields.hasErrors('employee_count')}" th:errors="*{employee_count}"
-                        class="text-xs text-red-500 mt-1"></p>
-                </div>
-            </div>
+						<div class="col-md-6 mb-3">
+							<label for="contact_name" class="form-label">Contact Name</label>
+							<div class="input-group">
+								<span class="input-group-text bg-light"><i class="fas fa-user-tie"></i></span>
+								<input type="text" id="contact_name" th:field="*{contact_name}" class="form-control"
+									placeholder="Ex: Carlos Manager" required>
+							</div>
+						</div>
+					</div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Manager ID -->
-                <div>
-                    <label for="manager_id" class="block text-sm font-medium text-gray-700 mb-1">Manager ID</label>
-                    <input type="text" id="manager_id" th:field="*{manager_id}"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150">
-                    <p th:if="${#fields.hasErrors('manager_id')}" th:errors="*{manager_id}"
-                        class="text-xs text-red-500 mt-1"></p>
-                </div>
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="branch_address" class="form-label">Address</label>
+							<div class="input-group">
+								<span class="input-group-text bg-light"><i class="fas fa-map-marker-alt"></i></span>
+								<input type="text" id="branch_address" th:field="*{branch_address}" class="form-control"
+									placeholder="Ex: 123 Main St" required>
+							</div>
+						</div>
 
-                <div>
-                    <label for="warehouse_id" class="block text-sm font-medium text-gray-700 mb-1">Warehouse ID</label>
-                    <input type="text" id="warehouse_id" th:field="*{warehouse_id}"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150">
-                    <p th:if="${#fields.hasErrors('warehouse_id')}" th:errors="*{warehouse_id}"
-                        class="text-xs text-red-500 mt-1"></p>
-                </div>
-            </div>
+						<div class="col-md-6 mb-3">
+							<label for="employee_count" class="form-label">Total Employees</label>
+							<div class="input-group">
+								<span class="input-group-text bg-light"><i class="fas fa-users"></i></span>
+								<input type="number" id="employee_count" th:field="*{employee_count}" min="0"
+									class="form-control" placeholder="Ex: 10" required>
+							</div>
+						</div>
+					</div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label for="inventory_id" class="block text-sm font-medium text-gray-700 mb-1">Inventory ID</label>
-                    <input type="text" id="inventory_id" th:field="*{inventory_id}"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150">
-                    <p th:if="${#fields.hasErrors('inventory_id')}" th:errors="*{inventory_id}"
-                        class="text-xs text-red-500 mt-1"></p>
-                </div>
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="managerId" class="form-label">Manager</label>
+							<select class="form-select" id="managerId" th:field="*{manager_id}" required>
+								<option value="" disabled selected>Select a Manager</option>
+								<option th:each="Mana : ${Managers}" th:value="${Mana.manager_id}"
+									th:text="${Mana.first_name}"></option>
+							</select>
+						</div>
 
-                <div>
-                    <label for="location_id" class="block text-sm font-medium text-gray-700 mb-1">Location ID</label>
-                    <input type="text" id="location_id" th:field="*{location_id}"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150">
-                    <p th:if="${#fields.hasErrors('location_id')}" th:errors="*{location_id}"
-                        class="text-xs text-red-500 mt-1"></p>
-                </div>
-            </div>
+						<div class="col-md-6 mb-3">
+							<label for="warehouseId" class="form-label">Warehouse</label>
+							<select class="form-select" id="warehouseId" th:field="*{warehouse_id}" required>
+								<option value="" disabled selected>Select a Warehouse</option>
+								<option th:each="Ware : ${Warehouses}" th:value="${Ware.warehouse_id}"
+									th:text="${Ware.warehouse_name}"></option>
+							</select>
+						</div>
+					</div>
 
-            <div class="pt-4 flex justify-end space-x-4">
-                <!-- Button to go back to the list -->
-                <a th:href="@{/listBranch}"
-                    class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition duration-150 font-medium">
-                    Cancel
-                </a>
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="inventoryId" class="form-label">Inventory</label>
+							<select class="form-select" id="inventoryId" th:field="*{inventory_id}" required>
+								<option value="" disabled selected>Select an Inventory</option>
+								<option th:each="Inven : ${Inventories}" th:value="${Inven.inventory_id}"
+									th:text="${Inven.inventory_name}"></option>
+							</select>
+						</div>
 
-                <button type="submit"
-                    class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150 font-medium shadow-md hover:shadow-lg">
-                    Save Branch
-                </button>
-            </div>
-        </form>
+						<div class="col-md-6 mb-3">
+							<label for="locationId" class="form-label">Location</label>
+							<select class="form-select" id="locationId" th:field="*{location_id}" required>
+								<option value="" disabled selected>Select a Location</option>
+								<option th:each="Locat : ${Locations}" th:value="${Locat.location_id}"
+									th:text="${Locat.state}"></option>
+							</select>
+						</div>
+					</div>
 
-    </div>
+					<div class="d-flex justify-content-end mt-4 pt-3 border-top">
+						<a th:href="@{/listBranch}" class="btn-cancel me-3">Cancel</a>
+						<button type="submit" class="btn-save">
+							<i class="fas fa-check-circle me-2"></i>Create Branch
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

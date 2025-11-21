@@ -1,0 +1,57 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+
+<head>
+    <title>Add New Wizard</title>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container my-4">
+        <h1>Add New Wizard</h1>
+        <hr>
+
+        <form th:action="@{/saveAssist}" th:object="${assistant}" method="post">
+            
+            <div class="mb-3">
+                <label for="firstName" class="form-label">First Name:</label>
+                <input type="text" th:field="*{first_name}" id="firstName" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="lastName" class="form-label">Last Name:</label>
+                <input type="text" th:field="*{last_name}" id="lastName" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone:</label>
+                <input type="text" th:field="*{phone}" id="phone" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" th:field="*{email}" id="email" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="warehouseId" class="form-label">Warehouse ID:</label>
+                <input type="number" th:field="*{warehouse_id}" id="warehouseId" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="branchId" class="form-label">Branch ID:</label>
+                <input type="number" th:field="*{branch_id}" id="branchId" class="form-control" required>
+            </div>
+
+
+            <button type="submit" class="btn btn-success me-2">Create Wizard</button>
+
+            <a th:href="@{/listAssist}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</body>
+
+</html>

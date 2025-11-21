@@ -8,16 +8,32 @@ import org.springframework.stereotype.Service;
 import com.Hokkaido.GestorDeVentasApp.entidades.Products;
 import com.Hokkaido.GestorDeVentasApp.repositorios.ProductsRepositorio;
 
+/**
+ * Implementación del servicio para la gestión de productos.
+ */
 @Service
-public class ProductsServicioImpl implements ProductsServicio{
-	
-	@Autowired
-	private ProductsRepositorio productsRepositorio;
-	
-	@Override
-	public List<Products> getAllProducts(){
-		return productsRepositorio.findAll();
-	}
-	
+public class ProductsServicioImpl implements ProductsServicio {
 
+    @Autowired
+    private ProductsRepositorio productsRepositorio;
+
+    @Override
+    public List<Products> getAllProducts() {
+        return productsRepositorio.findAll();
+    }
+
+    @Override
+    public Products getProductById(Long id) {
+        return productsRepositorio.findById(id).orElse(null);
+    }
+
+    @Override
+    public void saveOrUpdateProduct(Products product) {
+        productsRepositorio.save(product);
+    }
+
+    @Override
+    public void deleteProduct(Long id) {
+        productsRepositorio.deleteById(id);
+    }
 }

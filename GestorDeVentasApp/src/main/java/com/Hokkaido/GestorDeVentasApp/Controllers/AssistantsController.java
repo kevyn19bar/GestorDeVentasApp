@@ -2,7 +2,11 @@ package com.Hokkaido.GestorDeVentasApp.Controllers;
 
 import java.util.List;
 import com.Hokkaido.GestorDeVentasApp.servicios.AssistansServicio;
-import com.Hokkaido.GestorDeVentasApp.entidades.Assistants; 
+import com.Hokkaido.GestorDeVentasApp.servicios.BranchesServicio;
+import com.Hokkaido.GestorDeVentasApp.servicios.WarehousesServicio;
+import com.Hokkaido.GestorDeVentasApp.entidades.Assistants;
+import com.Hokkaido.GestorDeVentasApp.entidades.Branches;
+import com.Hokkaido.GestorDeVentasApp.entidades.Warehouses;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,58 +21,89 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class AssistantsController {
 
 	@Autowired
-	private AssistansServicio assistansServicio;
-
+	private AssistansServicio assistansServicio; 
 	
+	@Autowired
+	private BranchesServicio branchesServicio;
+	
+	@Autowired
+	private WarehousesServicio warehousesServicio;
+
+
 	@GetMapping("/listAssist")
 	public String getAllAssistants(Model model) {
 		try {
 			List<Assistants> listAssistants = assistansServicio.GetAllAssistants();
 			model.addAttribute("Assistants", listAssistants); 
+			
+			List<Warehouses> listWarehouses = warehousesServicio.GitAllWarehouses();
+	        model.addAttribute("Warehouses", listWarehouses);
+
+	        List<Branches> listBranch = branchesServicio.GetAllBranches();
+	        model.addAttribute("Branches", listBranch);
 		}
 		catch(Exception e) {
-			System.out.println("Error listing attendees: " + e.getMessage());
-			model.addAttribute("errorMessage", "Attendees could not be loaded.");
+			System.out.println("Error listing assistants: " + e.getMessage());
+			model.addAttribute("errorMessage", "Assistants could not be loaded.");
 		}
 		return "/entities/assist/Assistants";
 	}
-	
+
 	@GetMapping("/addAssist")
 	public String showAddForn(Model model) {
-		try {
-			model.addAttribute("assistant", new Assistants());
-		} catch (Exception e) {
-			System.out.println("Error preparing add form: " + e.getMessage());
-		}
-		return "/entities/assist/AddAssist";
+	    model.addAttribute("assistant", new Assistants());
+
+	    try {
+	        List<Warehouses> listWarehouses = warehousesServicio.GitAllWarehouses();
+	        model.addAttribute("Warehouses", listWarehouses);
+
+	        List<Branches> listBranch = branchesServicio.GetAllBranches();
+	        model.addAttribute("Branches", listBranch);
+	        
+	    } catch(Exception e) {
+	        System.out.println("Error loading related entities (Warehouses/Branches): " + e.getMessage());
+	        model.addAttribute("errorMessage", "Related lists (Warehouses/Branches) could not be loaded.");
+	    }
+
+	    return "/entities/assist/AddAssist";
 	}
-	
+
     @GetMapping("/editAssist/{id}")
     public String showEditForm(@PathVariable("id") Long id, Model model) {
         try {       
- 
+	        List<Warehouses> listWarehouses = warehousesServicio.GitAllWarehouses();
+	        model.addAttribute("Warehouses", listWarehouses);
+	        
+	        List<Branches> listBranch = branchesServicio.GetAllBranches();
+	        model.addAttribute("Branches", listBranch);
+            
             Assistants assistant = assistansServicio.getAssistantById(id);            
             model.addAttribute("assistant", assistant);
+            
         } catch (Exception e) {
-            System.out.println("Error getting editing wizard: " + e.getMessage());
+            System.out.println("Error getting editing assistant: " + e.getMessage());
             return "redirect:/listAssist";
         }
         return "/entities/assist/EditAssist";
     }
 
+
     @PostMapping("/saveAssist")
     public String saveAssistant(@ModelAttribute("assistant") Assistants assistant, RedirectAttributes redirectAttributes) {
  
         boolean isNew = (assistant.getAssistant_id() == null); 
+        
         try {
             assistansServicio.saveOrUpdateAssistant(assistant);
+            
             if (isNew) {
-                redirectAttributes.addFlashAttribute("successMessage", "Successfully added assistant.");
+                redirectAttributes.addFlashAttribute("successMessage", "Assistant successfully added.");
             } else {
-                redirectAttributes.addFlashAttribute("successMessage", "Successfully updated wizard.");
+                redirectAttributes.addFlashAttribute("successMessage", "Assistant successfully updated.");
             }
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Error saving wizard: " + e.getMessage());
+            System.out.println("Error saving assistant: " + e.getMessage());
+            redirectAttributes.addFlashAttribute("errorMessage", "Error saving assistant: " + e.getMessage());
         }
         
         return "redirect:/listAssist";
@@ -78,8 +113,9 @@ public class AssistantsController {
     public String deleteAssistant(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         try {
             assistansServicio.deleteAssistant(id);
-            redirectAttributes.addFlashAttribute("successMessage", "assistant ID " + id + " successfully removed.");
+            redirectAttributes.addFlashAttribute("successMessage", "Assistant ID " + id + " successfully removed.");
         } catch (Exception e) {
+            System.out.println("Error deleting assistant: " + e.getMessage());
             redirectAttributes.addFlashAttribute("errorMessage", "Error deleting assistant ID " + id + ": " + e.getMessage());
         }
         

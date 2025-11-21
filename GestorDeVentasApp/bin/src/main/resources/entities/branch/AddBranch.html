@@ -1,0 +1,122 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+
+<head>
+    <title>INVENTORY PRO 1.0 - Add Branch</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+
+    <div class="w-full max-w-2xl bg-white shadow-2xl rounded-xl p-8 md:p-10">
+
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-extrabold text-gray-800">Add New Branch</h1>
+            <p class="text-gray-500 mt-2">Enter the detailed information for the new branch.</p>
+        </div>
+
+        <form th:action="@{/savebranch}" th:object="${branch}" method="post" class="space-y-6">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="branch_name" class="block text-sm font-medium text-gray-700 mb-1">Branch Name</label>
+                    <input type="text" id="branch_name" th:field="*{branch_name}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150"
+                        required>
+                    <p th:if="${#fields.hasErrors('branch_name')}" th:errors="*{branch_name}"
+                        class="text-xs text-red-500 mt-1"></p>
+                </div>
+
+                <div>
+                    <label for="contact_name" class="block text-sm font-medium text-gray-700 mb-1">Contact Name</label>
+                    <input type="text" id="contact_name" th:field="*{contact_name}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150"
+                        required>
+                    <p th:if="${#fields.hasErrors('contact_name')}" th:errors="*{contact_name}"
+                        class="text-xs text-red-500 mt-1"></p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="branch_address" class="block text-sm font-medium text-gray-700 mb-1">Full Address</label>
+                    <input type="text" id="branch_address" th:field="*{branch_address}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150"
+                        required>
+                    <p th:if="${#fields.hasErrors('branch_address')}" th:errors="*{branch_address}"
+                        class="text-xs text-red-500 mt-1"></p>
+                </div>
+
+                <div>
+                    <label for="employee_count" class="block text-sm font-medium text-gray-700 mb-1">Total Employees</label>
+                    <input type="number" id="employee_count" th:field="*{employee_count}" min="0"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150"
+                        required>
+                    <p th:if="${#fields.hasErrors('employee_count')}" th:errors="*{employee_count}"
+                        class="text-xs text-red-500 mt-1"></p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Manager ID -->
+                <div>
+                    <label for="manager_id" class="block text-sm font-medium text-gray-700 mb-1">Manager ID</label>
+                    <input type="text" id="manager_id" th:field="*{manager_id}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150">
+                    <p th:if="${#fields.hasErrors('manager_id')}" th:errors="*{manager_id}"
+                        class="text-xs text-red-500 mt-1"></p>
+                </div>
+
+                <div>
+                    <label for="warehouse_id" class="block text-sm font-medium text-gray-700 mb-1">Warehouse ID</label>
+                    <input type="text" id="warehouse_id" th:field="*{warehouse_id}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150">
+                    <p th:if="${#fields.hasErrors('warehouse_id')}" th:errors="*{warehouse_id}"
+                        class="text-xs text-red-500 mt-1"></p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="inventory_id" class="block text-sm font-medium text-gray-700 mb-1">Inventory ID</label>
+                    <input type="text" id="inventory_id" th:field="*{inventory_id}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150">
+                    <p th:if="${#fields.hasErrors('inventory_id')}" th:errors="*{inventory_id}"
+                        class="text-xs text-red-500 mt-1"></p>
+                </div>
+
+                <div>
+                    <label for="location_id" class="block text-sm font-medium text-gray-700 mb-1">Location ID</label>
+                    <input type="text" id="location_id" th:field="*{location_id}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150">
+                    <p th:if="${#fields.hasErrors('location_id')}" th:errors="*{location_id}"
+                        class="text-xs text-red-500 mt-1"></p>
+                </div>
+            </div>
+
+            <div class="pt-4 flex justify-end space-x-4">
+                <!-- Button to go back to the list -->
+                <a th:href="@{/listBranch}"
+                    class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition duration-150 font-medium">
+                    Cancel
+                </a>
+
+                <button type="submit"
+                    class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150 font-medium shadow-md hover:shadow-lg">
+                    Save Branch
+                </button>
+            </div>
+        </form>
+
+    </div>
+</body>
+
+</html>

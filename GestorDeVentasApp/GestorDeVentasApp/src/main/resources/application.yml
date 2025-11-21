@@ -1,0 +1,11 @@
+server:
+  port: 9000
+Spring:
+  datasource:
+    url: jdbc:mysql://localhost:5290/gestorventas
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update

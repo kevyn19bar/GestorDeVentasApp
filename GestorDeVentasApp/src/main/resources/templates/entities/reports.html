@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>General Reports | Inventory Pro</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}" href="/css/dashboard.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-brand ps-3">
+            <img th:src="@{/img/logo.png}" src="/img/logo.png" width="35" class="me-2">
+            INV PRO 1.0
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-home"></i> Dashboard</a></li>
+            <div style="padding: 15px 25px; font-size: 0.75rem; text-transform: uppercase; color: #aaa; font-weight: bold;">Gestión</div>
+			<li class="nav-item"><a class="nav-link active" href="/Reports"><i class="fas fa-file-alt"></i> Reports</a></li>
+			<li class="nav-item"><a class="nav-link" href="/listProducts"><i class="fas fa-boxes"></i> Products</a></li>
+            <li class="nav-item"><a class="nav-link" href="/listInventory"><i class="fas fa-clipboard-list"></i> Inventory</a></li>
+            <li class="nav-item"><a class="nav-link" href="/listOrders"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+            <li class="nav-item"><a class="nav-link" href="/listSales"><i class="fas fa-chart-line"></i> Sales</a></li>
+            
+        </ul>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            
+            <div class="d-flex justify-content-between align-items-center mb-4 mt-2">
+                <h2 class="fw-bold text-dark">Reportes Generales</h2>
+                <button class="btn btn-primary" onclick="window.print()">
+                    <i class="fas fa-print me-2"></i> Imprimir Reporte
+                </button>
+            </div>
+
+            <div class="row">
+                
+                <div class="col-md-6 mb-4">
+                    <div class="table-card h-100">
+                        <div class="table-title border-bottom pb-2">
+                            <span><i class="fas fa-boxes me-2 text-warning"></i> Products</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table custom-table table-sm">
+                                <thead>
+                                    <tr><th>ID</th><th>Nombre</th><th>Precio</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="p : ${Products}">
+                                        <td th:text="${p.product_id}" class="fw-bold"></td>
+                                        <td th:text="${p.product_name}"></td>
+                                        <td th:text="${p.product_price}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="table-card h-100">
+                        <div class="table-title border-bottom pb-2">
+                            <span><i class="fas fa-clipboard-list me-2 text-success"></i> Inventories</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table custom-table table-sm">
+                                <thead>
+                                    <tr><th>ID</th><th>Producto</th><th>Stock</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="i : ${Inventories}">
+                                        <td th:text="${i.inventory_id}" class="fw-bold"></td>
+                                        <td th:text="${i.inventory_name}"></td>
+                                        <td th:text="${i.capacity_volume}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                
+                <div class="col-md-6 mb-4">
+                    <div class="table-card h-100">
+                        <div class="table-title border-bottom pb-2">
+                            <span><i class="fas fa-shopping-cart me-2 text-primary"></i> Orders</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table custom-table table-sm">
+                                <thead>
+                                    <tr><th>ID</th><th>Inicio</th><th>Entrega</th><th>Total</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="o : ${Orders}">
+                                        <td th:text="${o.order_id}" class="fw-bold"></td>
+                                        <td th:text="${o.date_order}"></td>
+                                        <td th:text="${o.date_delivered}"></td>
+                                        <td th:text="${o.value}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="table-card h-100">
+                        <div class="table-title border-bottom pb-2">
+                            <span><i class="fas fa-chart-line me-2 text-danger"></i> Sales</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table custom-table table-sm">
+                                <thead>
+                                    <tr><th>ID</th><th>Cantidad</th><th>Monto</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="v : ${Sales}">
+                                        <td th:text="${v.sale_id}" class="fw-bold"></td>
+                                        <td th:text="${v.quantity}"></td>
+                                        <td th:text="${v.value}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

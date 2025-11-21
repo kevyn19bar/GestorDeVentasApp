@@ -1,15 +1,84 @@
 <!DOCTYPE html>
 <html lang="en"
-	  xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
-	  
-	  <head>
-		<title>GestorVentas</title>
-		<meta charset="UTF-8">
-		<!-- COMENTARIO -->
-	  </head>
-	  <body>
-		
-	  </body>
-	  </html>
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>INVENTORY PRO 1.0 | Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}" href="/css/dashboard.css">
+</head>
+<body>
+
+    <div class="sidebar" id="sidebar">
+		<div class="sidebar-brand d-flex align-items-center ps-3">
+		    <img th:src="@{/img/logo.png}" src="/img/logo.png" alt="Logo" width="45" height="45" class="me-2">
+		    <span>INV PRO 1.0</span>
+		</div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href=""><i class="fas fa-home"></i> Dashboard</a>
+            </li>
+            
+            <div style="padding: 15px 25px; font-size: 0.75rem; text-transform: uppercase; color: #aaa; font-weight: bold;">
+                Gestión
+            </div>
+
+            <li class="nav-item"><a class="nav-link" href="/listProducts"><i class="fas fa-boxes"></i> Products</a></li>
+            <li class="nav-item"><a class="nav-link" href="/listInventory"><i class="fas fa-clipboard-list"></i> Inventory</a></li>
+            <li class="nav-item"><a class="nav-link" href="/listOrders"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+            <li class="nav-item"><a class="nav-link" href="/listSales"><i class="fas fa-chart-line"></i> Sales</a></li> 
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#masterData" role="button" aria-expanded="false">
+                    <i class="fas fa-database"></i> Maestros <i class="fas fa-chevron-down float-end" style="font-size: 0.8em; margin-top: 5px;"></i>
+                </a>
+                <div class="collapse" id="masterData" style="background: rgba(0,0,0,0.2);">
+                    <a class="nav-link ps-5" href="/listAssist">Assistents</a>
+                    <a class="nav-link ps-5" href="/listBranch">Branch</a>
+                    <a class="nav-link ps-5" href="/listLocation">Location</a>
+                    <a class="nav-link ps-5" href="/listManager">Managers</a>
+                    <a class="nav-link ps-5" href="/listSuppl">Suppliers</a>
+                    <a class="nav-link ps-5" href="/listWareho">Warehouses</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content-wrapper">
+        
+        <div class="header-navbar">
+            <button class="btn btn-link text-dark" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+            <div class="user-info">
+                <span class="me-2 text-gray-600 small">Admin User</span>
+                <img src="https://ui-avatars.com/api/?name=Admin&background=random" class="rounded-circle" width="35">
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="welcome-card">
+                        <h1 class="display-5 fw-bold">Bienvenido a Inventory Pro</h1>
+                        <p class="lead">Gestiona tus productos, ventas y almacenes desde un solo lugar.</p>
+                        <a th:href="@{/Reports}" class="btn btn-light btn-lg mt-3 text-primary fw-bold">Ver Reportes</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/js/dashboard.js}" src="/js/dashboard.js"></script>
+</body>
+</html>

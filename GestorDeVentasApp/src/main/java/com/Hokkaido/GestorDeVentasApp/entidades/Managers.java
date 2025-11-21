@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Managers {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long manager_id;

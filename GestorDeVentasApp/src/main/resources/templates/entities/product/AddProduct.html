@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Add New Product</title>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+	<div class="container my-4">
+		<h1>Add New Product</h1>
+		<hr>
+
+        <form th:action="@{/saveProduct}" th:object="${product}" method="post">
+
+            <input type="hidden" th:field="*{product_id}">
+
+			<div class="mb-3">
+				<label for="productName" class="form-label">Product Name:</label>
+				<input type="text" th:field="*{product_name}" id="productName" class="form-control" required>
+			</div>
+
+			<div class="mb-3">
+				<label for="productWeight" class="form-label">Weight (kg):</label>
+				<input type="number" step="0.01" th:field="*{product_weight}" id="productWeight" class="form-control" required>
+			</div>
+
+			<div class="mb-3">
+				<label for="productPrice" class="form-label">Price ($):</label>
+				<input type="number" step="0.01" th:field="*{product_price}" id="productPrice" class="form-control" required>
+			</div>
+
+			<div class="mb-3">
+				<label for="supplierId" class="form-label">Supplier ID:</label>
+                <select th:field="*{supplier_id}" id="supplierId" class="form-select" >
+					<option value="">Select a Supplier</option>
+					<option th:each="sup : ${Suppliers}" th:value="${sup.supplier_id}" th:text="${sup.supplier_id} + ' - ' + ${sup.supplier_name}">
+					</option>
+				</select>
+				<div id="supplierIdHelp" class="form-text">Select the supplier for this product.</div>
+			</div>
+
+			<button type="submit" class="btn btn-success me-2">Create Product</button>
+            <a th:href="@{/listProducts}" class="btn btn-secondary">Cancel</a>
+		</form>
+	</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

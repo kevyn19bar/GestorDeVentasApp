@@ -1,9 +1,16 @@
 package com.Hokkaido.GestorDeVentasApp.entidades;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Assistants {
@@ -15,13 +22,27 @@ public class Assistants {
 	private String last_name;
 	private String phone;
 	private String email;
-	private Long warehouse_id;
-	private Long branch_id;
-//hola 	
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "warehouse_id")
+    @NotFound(action = NotFoundAction.IGNORE)
+	private Warehouses warehouse_id;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "branch_id")
+    @NotFound(action = NotFoundAction.IGNORE)
+	private Branches branch_id;
+	
+	@Transient
+	private Long warehouseIdValue;
+	
+	@Transient
+	private Long branchIdValue;
+
 	public Assistants() {
 		super();
 	}
-	
+
 	public Long getAssistant_id() {
 		return assistant_id;
 	}
@@ -55,21 +76,31 @@ public class Assistants {
 		this.email = email;
 	}
 
-	public Long getWarehouse_id() {
-		return warehouse_id;
-	}
+	public Warehouses getWarehouse_id() {
+        return warehouse_id;
+    }
 
-	public void setWarehouse_id(Long warehouse_id) {
-		this.warehouse_id = warehouse_id;
-	}
+    public void setWarehouse_id(Warehouses warehouse_id) {
+        this.warehouse_id = warehouse_id;
+    }
 
-	public Long getBranch_id() {
-		return branch_id;
-	}
+    public Branches getBranch_id() {
+        return branch_id;
+    }
 
-	public void setBranch_id(Long branch_id) {
-		this.branch_id = branch_id;
-	}
+    public void setBranch_id(Branches branch_id) {
+        this.branch_id = branch_id;
+    }
+
+    // === Derived, ignored by JPA ===
+
+    public Long getWarehouseIdValue() {
+        return (warehouse_id != null) ? warehouse_id.getWarehouse_id() : null;
+    }
+
+    public Long getBranchIdValue() {
+        return (branch_id != null) ? branch_id.getBranch_id() : null;
+    }
 	
 	
 }

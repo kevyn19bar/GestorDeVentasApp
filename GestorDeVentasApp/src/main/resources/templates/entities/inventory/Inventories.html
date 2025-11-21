@@ -47,7 +47,7 @@
 					<th:block th:each="Inven :  ${Inventories}">
 						<tr>
 							<td>
-                                <!-- Enlace de Edición: Se asume que el endpoint es /editInven/{id} -->
+                               
                                 <a th:href="@{/editInventory/{id}(id=${Inven.inventory_id})}" title="Edit" style="margin-right: 8px;">
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="royalblue"
 										viewBox="0 0 16 16">
@@ -57,7 +57,6 @@
 											d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
 									</svg>
 								</a>
-                                <!-- Enlace de Eliminación: Se asume que el endpoint es /delInven/{id} y se añade confirmación -->
 								<a th:href="@{/delInventory/{id}(id=${Inven.inventory_id})}" title="Delete" onclick="return confirm('¿Estás seguro de que quieres eliminar este inventario?');">
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
 										viewBox="0 0 16 16">

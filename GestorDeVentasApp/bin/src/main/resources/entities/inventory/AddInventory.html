@@ -1,0 +1,78 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <title>INVENTORY PRO 1.0 - Add Inventory</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+
+    <div class="w-full max-w-2xl bg-white shadow-2xl rounded-xl p-8 md:p-10">
+
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-extrabold text-gray-800">Add New Inventory</h1>
+            <p class="text-gray-500 mt-2">Enter the detailed information for the new inventory.</p>
+        </div>
+
+        <form th:action="@{/saveinventori}" th:object="${inventori}" method="post" class="space-y-6">
+
+            <input type="hidden" th:field="*{inventory_id}" />
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="inventory_name" class="block text-sm font-medium text-gray-700 mb-1">Inventory Name</label>
+                    <input type="text" id="inventory_name" th:field="*{inventory_name}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150"
+                        required>
+                    <!-- Manejo de errores (si defines validaciones en la entidad Inventories) -->
+                    <p th:if="${#fields.hasErrors('inventory_name')}" th:errors="*{inventory_name}"
+                        class="text-xs text-red-500 mt-1"></p>
+                </div>
+
+                <div>
+                    <label for="capacity_volume" class="block text-sm font-medium text-gray-700 mb-1">Capacity Volume</label>
+                    <input type="number" id="capacity_volume" th:field="*{capacity_volume}" min="0" step="0.01"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150"
+                        required>
+                    <p th:if="${#fields.hasErrors('capacity_volume')}" th:errors="*{capacity_volume}"
+                        class="text-xs text-red-500 mt-1"></p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-6">
+                <div>
+                    <label for="creation_date" class="block text-sm font-medium text-gray-700 mb-1">Creation Date</label>
+                    <input type="date" id="creation_date" th:field="*{creation_date}"
+                        th:value="${#dates.format(inventori.creation_date, 'yyyy-MM-dd')}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150">
+                    <p th:if="${#fields.hasErrors('creation_date')}" th:errors="*{creation_date}"
+                        class="text-xs text-red-500 mt-1"></p>
+                </div>
+            </div>
+
+            <div class="pt-4 flex justify-end space-x-4">
+                <a th:href="@{/listInventory}"
+                    class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition duration-150 font-medium">
+                    Cancel
+                </a>
+
+                <button type="submit"
+                    class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150 font-medium shadow-md hover:shadow-lg">
+                    Save Inventory
+                </button>
+            </div>
+        </form>
+
+    </div>
+</body>
+
+</html>
