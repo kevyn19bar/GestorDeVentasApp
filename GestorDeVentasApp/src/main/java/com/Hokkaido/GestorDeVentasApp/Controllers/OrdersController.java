@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.Hokkaido.GestorDeVentasApp.entidades.Branches;
 import com.Hokkaido.GestorDeVentasApp.entidades.Orders;
-
+import com.Hokkaido.GestorDeVentasApp.entidades.Suppliers;
+import com.Hokkaido.GestorDeVentasApp.servicios.BranchesServicio;
 import com.Hokkaido.GestorDeVentasApp.servicios.OrdensServicio;
+import com.Hokkaido.GestorDeVentasApp.servicios.SuppliersServicio;
 
 @Controller
 public class OrdersController {
@@ -21,11 +24,24 @@ public class OrdersController {
 	@Autowired
 	private OrdensServicio ordensServicio;
 	
+	@Autowired
+	private BranchesServicio branchesServicio;
+	
+	@Autowired
+	private SuppliersServicio suppliersServicio;
+	
 	@GetMapping("/listOrders")
 	public String getAllAssistants(Model model) {
 		try {
 			List<Orders> lisOrders = ordensServicio.getAllOrders();
 			model.addAttribute("Orders", lisOrders);
+			
+			List<Branches> listBranch = branchesServicio.GetAllBranches();
+	        model.addAttribute("Branches", listBranch);
+	        
+	        List<Suppliers> listSupplier = suppliersServicio.GitAllSuppliers();
+	        model.addAttribute("Supliers", listSupplier);
+	        
 		} catch (Exception e) {
 			System.out.println("Error: "+e);
 		}
@@ -34,8 +50,14 @@ public class OrdersController {
 	
 	@GetMapping("/addOrder")
 	public String showAddForn(Model model) {
+		model.addAttribute("order", new Orders());
 		try {
-			model.addAttribute("order", new Orders());
+			List<Branches> listBranch = branchesServicio.GetAllBranches();
+	        model.addAttribute("Branches", listBranch);
+	        
+	        List<Suppliers> listSupplier = suppliersServicio.GitAllSuppliers();
+	        model.addAttribute("Supliers", listSupplier);
+	        
 		} catch (Exception e) {
 			System.out.println("Error preparing add form: " + e.getMessage());
 		}
@@ -46,6 +68,13 @@ public class OrdersController {
         try {       
             Orders orders = ordensServicio.getOrderById(id);            
             model.addAttribute("order", orders);
+            
+            List<Branches> listBranch = branchesServicio.GetAllBranches();
+	        model.addAttribute("Branches", listBranch);
+	        
+	        List<Suppliers> listSupplier = suppliersServicio.GitAllSuppliers();
+	        model.addAttribute("Supliers", listSupplier);
+	        
         } catch (Exception e) {
             System.out.println("Error getting editing order: " + e.getMessage());
             return "redirect:/listOrder";

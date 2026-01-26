@@ -1,9 +1,14 @@
 package com.Hokkaido.GestorDeVentasApp.entidades;
 
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 
 @Entity
 public class Sales {
@@ -13,6 +18,10 @@ public class Sales {
 	
 	private Long branch_id;
 	private int quantity;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date saleDate;
+	
 	private Double tax;
 	private Double subtotal;
 	private Double discount;
@@ -78,4 +87,14 @@ public class Sales {
 		this.value = value;
 	}
 	
+	public Date getSaleDate() { 
+		return saleDate; }
+	
+    public void setSaleDate(Date saleDate) { 
+    	this.saleDate = saleDate; }
+    
+    @PrePersist
+    protected void onCreate() {
+        if (this.saleDate == null) { this.saleDate = new Date(); }
+    }
 }

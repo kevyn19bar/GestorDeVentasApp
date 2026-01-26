@@ -1,84 +1,231 @@
 <!DOCTYPE html>
-<html lang="en"
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" 
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
-<head>
-    <title>INVENTORY PRO 1.0 | Dashboard</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
+<head>
+    <title>Dashboard | Inventory Pro</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/dashboard.css}" href="/css/dashboard.css">
 </head>
+
 <body>
 
-    <div class="sidebar" id="sidebar">
-		<div class="sidebar-brand d-flex align-items-center ps-3">
-		    <img th:src="@{/img/logo.png}" src="/img/logo.png" alt="Logo" width="45" height="45" class="me-2">
-		    <span>INV PRO 1.0</span>
-		</div>
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link active" href=""><i class="fas fa-home"></i> Dashboard</a>
-            </li>
-            
-            <div style="padding: 15px 25px; font-size: 0.75rem; text-transform: uppercase; color: #aaa; font-weight: bold;">
-                Gestión
-            </div>
+	<div class="sidebar" id="sidebar">
+	<div class="sidebar-brand d-flex align-items-center ps-3">
+	    <img th:src="@{/img/logo.png}" src="/img/logo.png" width="45" height="45" alt="Logo"  class="me-2">
+	    <span>INV PRO 1.0</span>
+	</div>
+	<ul class="nav flex-column">
+	    <li class="nav-item">
+	        <a class="nav-link active" href=""><i class="fas fa-home"></i> Dashboard</a>
+	    </li>
+	    
+	    <div style="padding: 15px 25px; font-size: 0.75rem; text-transform: uppercase; color: #aaa; font-weight: bold;">
+	        Gestión
+	    </div>
 
-            <li class="nav-item"><a class="nav-link" href="/listProducts"><i class="fas fa-boxes"></i> Products</a></li>
-            <li class="nav-item"><a class="nav-link" href="/listInventory"><i class="fas fa-clipboard-list"></i> Inventory</a></li>
-            <li class="nav-item"><a class="nav-link" href="/listOrders"><i class="fas fa-shopping-cart"></i> Orders</a></li>
-            <li class="nav-item"><a class="nav-link" href="/listSales"><i class="fas fa-chart-line"></i> Sales</a></li> 
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#masterData" role="button" aria-expanded="false">
-                    <i class="fas fa-database"></i> Maestros <i class="fas fa-chevron-down float-end" style="font-size: 0.8em; margin-top: 5px;"></i>
-                </a>
-                <div class="collapse" id="masterData" style="background: rgba(0,0,0,0.2);">
-                    <a class="nav-link ps-5" href="/listAssist">Assistents</a>
-                    <a class="nav-link ps-5" href="/listBranch">Branch</a>
-                    <a class="nav-link ps-5" href="/listLocation">Location</a>
-                    <a class="nav-link ps-5" href="/listManager">Managers</a>
-                    <a class="nav-link ps-5" href="/listSuppl">Suppliers</a>
-                    <a class="nav-link ps-5" href="/listWareho">Warehouses</a>
-                </div>
-            </li>
-        </ul>
-    </div>
+	    <li class="nav-item"><a class="nav-link" href="/listProducts"><i class="fas fa-boxes"></i> Products</a></li>
+	    <li class="nav-item"><a class="nav-link" href="/listInventory"><i class="fas fa-clipboard-list"></i> Inventory</a></li>
+	    <li class="nav-item"><a class="nav-link" href="/listOrders"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+	    <li class="nav-item"><a class="nav-link" href="/listSales"><i class="fas fa-chart-line"></i> Sales</a></li> 
+	    <li class="nav-item">
+	        <a class="nav-link" data-bs-toggle="collapse" href="#masterData" role="button" aria-expanded="false">
+	            <i class="fas fa-database"></i> Maestros <i class="fas fa-chevron-down float-end" style="font-size: 0.8em; margin-top: 5px;"></i>
+	        </a>
+	        <div class="collapse" id="masterData" style="background: rgba(0,0,0,0.2);">
+	            <a class="nav-link ps-5" href="/listAssist">Assistents</a>
+	            <a class="nav-link ps-5" href="/listBranch">Branch</a>
+	            <a class="nav-link ps-5" href="/listLocation">Location</a>
+	            <a class="nav-link ps-5" href="/listManager">Managers</a>
+	            <a class="nav-link ps-5" href="/listSuppl">Suppliers</a>
+	            <a class="nav-link ps-5" href="/listWareho">Warehouses</a>
+	        </div>
+	    </li>
+	</ul>
+	</div>
 
     <div class="content-wrapper">
-        
-        <div class="header-navbar">
-            <button class="btn btn-link text-dark" id="sidebarToggle"><i class="fas fa-bars"></i></button>
-            <div class="user-info">
-                <span class="me-2 text-gray-600 small">Admin User</span>
-                <img src="https://ui-avatars.com/api/?name=Admin&background=random" class="rounded-circle" width="35">
-            </div>
-        </div>
-
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="welcome-card">
-                        <h1 class="display-5 fw-bold">Bienvenido a Inventory Pro</h1>
-                        <p class="lead">Gestiona tus productos, ventas y almacenes desde un solo lugar.</p>
-                        <a th:href="@{/Reports}" class="btn btn-light btn-lg mt-3 text-primary fw-bold">Ver Reportes</a>
+
+            <div class="d-flex justify-content-between align-items-center mb-4 mt-2">
+                <div>
+                    <h2 class="fw-bold" style="color: var(--dark-bg);">Dashboard Overview</h2>
+                    <p class="text-muted">Welcome back, Admin!</p>
+                </div>
+                <button class="btn btn-primary btn-add-new">
+                    <i class="fas fa-download me-2"></i> Download Report
+                </button>
+            </div>
+
+            <div class="row mb-4">
+                
+                <div class="col-md-3 mb-3">
+                    <div class="card border-0 text-white h-100" 
+                         style="background: linear-gradient(135deg, #E67E22 0%, #D35400 100%); border-radius: 15px; box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4);">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="text-uppercase mb-1" style="opacity: 0.8;">Total Earnings</h6>
+                                    <h3 class="fw-bold mb-0" th:text="${'$ ' + #numbers.formatDecimal(totalEarnings, 1, 2)}">$0.00</h3>
+                                </div>
+                                <i class="fas fa-dollar-sign fa-2x" style="opacity: 0.5;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    <div class="card border-0 text-white h-100" 
+                         style="background: linear-gradient(135deg, #3E2723 0%, #5D4037 100%); border-radius: 15px; box-shadow: 0 4px 15px rgba(62, 39, 35, 0.4);">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="text-uppercase mb-1" style="opacity: 0.8;">Products</h6>
+                                    <h3 class="fw-bold mb-0" th:text="${totalProducts}">0</h3>
+                                </div>
+                                <i class="fas fa-boxes fa-2x" style="opacity: 0.5;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    <div class="card border-0 text-white h-100" 
+                         style="background: linear-gradient(135deg, #7f8c8d 0%, #2c3e50 100%); border-radius: 15px; box-shadow: 0 4px 15px rgba(44, 62, 80, 0.3);">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="text-uppercase mb-1" style="opacity: 0.8;">Orders</h6>
+                                    <h3 class="fw-bold mb-0" th:text="${totalOrders}">0</h3>
+                                </div>
+                                <i class="fas fa-shopping-cart fa-2x" style="opacity: 0.5;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    <div class="card border-0 text-white h-100" 
+                         style="background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%); border-radius: 15px; box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="text-uppercase mb-1" style="opacity: 0.8;">Suppliers</h6>
+                                    <h3 class="fw-bold mb-0" th:text="${totalSuppliers}">0</h3>
+                                </div>
+                                <i class="fas fa-truck fa-2x" style="opacity: 0.5;"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row mt-4">
-                <div class="col-md-12">
+            <div class="row">
+                <div class="col-lg-8 mb-4">
+                    <div class="card shadow border-0" style="border-radius: 15px;">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-white" style="border-bottom: 1px solid #f0f0f0; border-radius: 15px 15px 0 0;">
+                            <h6 class="m-0 fw-bold" style="color: var(--dark-bg);">Sales Overview</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-area" style="height: 320px;">
+                                <canvas id="myAreaChart"></canvas>
+                            </div>
+                        </div>
                     </div>
+                </div>
+
+                <div class="col-lg-4 mb-4">
+                    <div class="card shadow border-0" style="border-radius: 15px;">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-white" style="border-bottom: 1px solid #f0f0f0; border-radius: 15px 15px 0 0;">
+                            <h6 class="m-0 fw-bold" style="color: var(--dark-bg);">Inventory Status</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-pie pt-4 pb-2" style="height: 250px;">
+                                <canvas id="myPieChart"></canvas>
+                            </div>
+                            <div class="mt-4 text-center small text-muted">
+                                <span class="me-2"><i class="fas fa-circle text-primary"></i> Electronics</span>
+                                <span class="me-2"><i class="fas fa-circle text-success"></i> Home</span>
+                                <span class="me-2"><i class="fas fa-circle text-info"></i> Office</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script th:src="@{/js/dashboard.js}" src="/js/dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script th:inline="javascript">
+        // Configuración de colores estilo Inventory Pro
+        var primaryColor = '#E67E22'; // Naranja
+        var darkColor = '#3E2723';    // Marrón
+        
+        // GRÁFICO DE AREA (VENTAS)
+        var ctx = document.getElementById("myAreaChart");
+        var myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                // Simulación de etiquetas (Meses)
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                datasets: [{
+                    label: "Earnings",
+                    lineTension: 0.3,
+                    backgroundColor: "rgba(230, 126, 34, 0.05)",
+                    borderColor: primaryColor,
+                    pointRadius: 3,
+                    pointBackgroundColor: primaryColor,
+                    pointBorderColor: primaryColor,
+                    pointHoverRadius: 3,
+                    pointHoverBackgroundColor: darkColor,
+                    pointHoverBorderColor: darkColor,
+                    pointHitRadius: 10,
+                    pointBorderWidth: 2,
+                    // Aquí usamos datos ficticios para el ejemplo visual, 
+                    // en el futuro los traerás de tu base de datos
+                    data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
+                }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                layout: { padding: { left: 10, right: 25, top: 25, bottom: 0 } },
+                scales: {
+                    x: { grid: { display: false, drawBorder: false }, ticks: { maxTicksLimit: 7 } },
+                    y: { ticks: { maxTicksLimit: 5, padding: 10, callback: function(value) { return '$' + value; } }, grid: { color: "rgb(234, 236, 244)", zeroLineColor: "rgb(234, 236, 244)", drawBorder: false, borderDash: [2], zeroLineBorderDash: [2] } },
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        // GRÁFICO DE DONUT (CATEGORIAS)
+        var ctxPie = document.getElementById("myPieChart");
+        var myPieChart = new Chart(ctxPie, {
+            type: 'doughnut',
+            data: {
+                labels: ["Electronics", "Home", "Office"],
+                datasets: [{
+                    data: [55, 30, 15],
+                    backgroundColor: [primaryColor, "#1cc88a", "#36b9cc"],
+                    hoverBackgroundColor: [darkColor, "#17a673", "#2c9faf"],
+                    hoverBorderColor: "rgba(234, 236, 244, 1)",
+                }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                tooltips: { backgroundColor: "rgb(255,255,255)", bodyFontColor: "#858796", borderColor: '#dddfeb', borderWidth: 1, xPadding: 15, yPadding: 15, displayColors: false, caretPadding: 10 },
+                plugins: { legend: { display: false } },
+                cutout: '80%',
+            },
+        });
+    </script>
 </body>
 </html>

@@ -318,3 +318,44 @@ body {
     background-color: #dbe2e8;
     color: #222;
 }
+
+/* =========================================
+   OVERRIDE DATATABLES (ESTILO INVENTORY PRO)
+   ========================================= */
+
+/* Paginación: Botones */
+.page-item.active .page-link {
+    background-color: var(--primary-color) !important; /* Tu Naranja */
+    border-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+.page-link {
+    color: var(--dark-bg); /* Tu Marrón */
+}
+
+.page-link:hover {
+    color: var(--primary-color);
+}
+
+/* Buscador y Select */
+div.dataTables_wrapper div.dataTables_filter input {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+div.dataTables_wrapper div.dataTables_filter input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(230, 126, 34, 0.25);
+}
+
+/* Espaciado de los botones de exportación */
+.dt-buttons {
+    margin-bottom: 15px;
+}
+.dt-buttons .btn {
+    margin-right: 5px;
+    border-radius: 5px;
+}

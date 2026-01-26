@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.Hokkaido.GestorDeVentasApp.entidades.Branches;
 import com.Hokkaido.GestorDeVentasApp.entidades.Sales;
+import com.Hokkaido.GestorDeVentasApp.servicios.BranchesServicio;
 import com.Hokkaido.GestorDeVentasApp.servicios.SalesServicio;
 
 @Controller
@@ -20,11 +22,18 @@ public class SalesController {
     @Autowired
     private SalesServicio salesServicio;
     
+    @Autowired
+	private BranchesServicio branchesServicio;
+    
     @GetMapping("/listSales")
     public String getAllSales(Model model) {
         try {
             List<Sales> listSales = salesServicio.getAllSales();
             model.addAttribute("Sales", listSales);
+            
+            List<Branches> listBranches = branchesServicio.GetAllBranches();
+			model.addAttribute("Branches", listBranches);
+			
         } catch (Exception e) {
             System.out.println("Error retrieving sales: " + e.getMessage());
         }
@@ -34,8 +43,11 @@ public class SalesController {
    
     @GetMapping("/addSale")
     public String showAddForm(Model model) {
+    	model.addAttribute("sale", new Sales());
         try {
-            model.addAttribute("sale", new Sales());
+            
+            List<Branches> listBranches = branchesServicio.GetAllBranches();
+			model.addAttribute("Branches", listBranches);
         } catch (Exception e) {
             System.out.println("Error preparing add form: " + e.getMessage());
         }
@@ -48,6 +60,10 @@ public class SalesController {
         try {
             Sales sale = salesServicio.getSaleById(id);
             model.addAttribute("sale", sale);
+            
+            List<Branches> listBranches = branchesServicio.GetAllBranches();
+			model.addAttribute("Branches", listBranches);
+			
         } catch (Exception e) {
             System.out.println("Error retrieving sale for edit: " + e.getMessage());
             return "redirect:/listSales";

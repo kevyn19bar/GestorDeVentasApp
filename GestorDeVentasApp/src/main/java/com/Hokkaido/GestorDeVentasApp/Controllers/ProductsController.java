@@ -19,13 +19,18 @@ public class ProductsController {
     @Autowired
     private ProductsServicio productsServicio;
     
-    @Autowired SuppliersServicio suppliersServicio;
+    @Autowired
+	private SuppliersServicio suppliersServicio;
 
     @GetMapping("/listProducts")
     public String listProducts(Model model) {
         try {
             List<Products> listProducts = productsServicio.getAllProducts();
             model.addAttribute("Products", listProducts);
+            
+            List<Suppliers> listSupplier = suppliersServicio.GitAllSuppliers();
+	        model.addAttribute("Suppliers", listSupplier);
+	        
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
@@ -36,6 +41,7 @@ public class ProductsController {
     public String showAddForm(Model model) {
     	List<Suppliers> listSuppliers = suppliersServicio.GitAllSuppliers();
     	model.addAttribute("supplier", listSuppliers);
+    	model.addAttribute("categorias", Products.Tipoproduct.values());
         model.addAttribute("product", new Products());
         return "/entities/product/AddProduct";
     }
@@ -44,6 +50,10 @@ public class ProductsController {
     public String showEditForm(@PathVariable("id") Long id, Model model) {
         Products product = productsServicio.getProductById(id);
         model.addAttribute("product", product);
+        List<Suppliers> listSupplier = suppliersServicio.GitAllSuppliers();
+        model.addAttribute("categorias", Products.Tipoproduct.values());
+        model.addAttribute("supplier", listSupplier);
+        
         return "/entities/product/EditProduct";
     }
 
